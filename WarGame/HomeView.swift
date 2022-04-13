@@ -16,7 +16,7 @@ class HomeView: UIViewController {
     
 
     @IBAction func btnStart(_ sender: UIButton) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "game") as! GameView
+        let vc = storyboard?.instantiateViewController(withIdentifier: "info") as! InfoView
         present(vc, animated: true)
     }
     

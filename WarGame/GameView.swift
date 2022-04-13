@@ -16,6 +16,10 @@ class GameView: UIViewController {
     
     @IBOutlet weak var Player2Name: UILabel!
     @IBOutlet weak var Player1Name: UILabel!
+    
+    var player1text: String = "Player 1"
+    var player2text: String = "Player 2"
+    
     @IBOutlet weak var ScorePlayer1: UILabel!
     @IBOutlet weak var ScorePlayer2: UILabel!
     var score1 : Int = 0;
@@ -30,7 +34,17 @@ class GameView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if player1text.isEmpty{
+            Player1Name.text = "Player 1"
+        }else{
+            Player1Name.text = player1text
+        }
         
+        if player2text.isEmpty{
+            Player2Name.text = "Player 2"
+        }else{
+            Player2Name.text = player2text
+        }
         
         self.timer = Timer.scheduledTimer(withTimeInterval: 2,repeats: true , block: {_ in
             self.playGame();
@@ -47,7 +61,7 @@ class GameView: UIViewController {
         
     }
     /**
-            check who is the winner
+     check who is the winner
      */
     func checkFinalWinner(){
         if score1 > score2{
@@ -71,7 +85,7 @@ class GameView: UIViewController {
         
     }
     /**
-        Check current round winner!
+     Check current round winner!
      */
     func checkWinner(_ index1 : Int , _ index2 : Int){
         if index1 < index2 {
