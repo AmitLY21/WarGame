@@ -24,7 +24,7 @@ class GameView: UIViewController {
     @IBOutlet weak var ScorePlayer2: UILabel!
     var score1 : Int = 0;
     var score2 : Int = 0;
-
+    
     @IBOutlet weak var lbl_winner: UILabel!
     @IBOutlet weak var numOfRounds: UILabel!
     
@@ -34,6 +34,25 @@ class GameView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        assignPlayersNames();
+        
+        
+        self.timer = Timer.scheduledTimer(withTimeInterval: 2,repeats: true , block: {_ in
+            self.playGame();
+            self.gameCounter += 1
+            self.numOfRounds.text = "Number Of Rounds: \(self.gameCounter)/15"
+            
+            if self.gameCounter == 15{
+                self.timer.invalidate(); //Stops timer
+                self.checkFinalWinner();
+            }
+        })
+        
+        
+        
+    }
+    
+    func assignPlayersNames(){
         if player1text.isEmpty{
             Player1Name.text = "Player 1"
         }else{
@@ -45,21 +64,8 @@ class GameView: UIViewController {
         }else{
             Player2Name.text = player2text
         }
-        
-        self.timer = Timer.scheduledTimer(withTimeInterval: 2,repeats: true , block: {_ in
-            self.playGame();
-            self.gameCounter += 1
-            self.numOfRounds.text = "Number Of Rounds: \(self.gameCounter)/20"
-            
-            if self.gameCounter == 20{
-                self.timer.invalidate();
-                self.checkFinalWinner();
-            }
-        })
-        
-        
-        
     }
+    
     /**
      check who is the winner
      */
@@ -96,17 +102,17 @@ class GameView: UIViewController {
             score1+=1
             ScorePlayer1.text = "Score: \(score1)"
             lbl_winner.text = "Player 1 Won!"
-
+            
         }else{
             score1+=1
             score2+=1
             ScorePlayer1.text = "Score: \(score1)"
             ScorePlayer2.text = "Score: \(score2)"
             lbl_winner.text = "TIE!"
-
+            
         }
     }
-
+    
 }
 
-	
+
